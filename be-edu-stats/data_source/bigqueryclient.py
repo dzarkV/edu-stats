@@ -1,13 +1,17 @@
 import os
 
 from sqlalchemy.engine import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import Session
 
 from data_source.config_sources import big_query_uri, credentials
 
 
-def get_session_client():
-    """Get a session client to connect to BigQuery """
+Base = declarative_base()
+
+
+def get_bigquery_session():
+    """Get a session client to connect to BigQuery"""
 
     engine = create_engine(
         big_query_uri,
