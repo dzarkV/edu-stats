@@ -1,6 +1,7 @@
 from models.indicator import Indicator
 from models.indicatorvalue import IndicatorValue
 from models.indicatoryear import IndicatorYear
+from queries.indicators_name import IndicatorNames
 from sqlmodel import Session, select
 
 
@@ -80,3 +81,9 @@ def whole_indicator_by_name(db: Session, name: str, limit: int):
     if complete_indicators is not None:
         return indicators_helper_format(complete_indicators)
     return None
+
+def indicators_from_enum() -> list:
+    """
+    Get all indicators to select from enum class
+    """
+    return [i.value for i in IndicatorNames]
