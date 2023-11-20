@@ -1,6 +1,7 @@
 .venv
 venv/
 *.json
+!package*.json
 .idea/
 *.env
 
