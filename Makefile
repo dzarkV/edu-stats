@@ -1,2 +1,2 @@
 get-credentials:
-	chmod +x ./init.sh && ./init.sh
+	chmod +x ./activate.sh && ./activate.sh
