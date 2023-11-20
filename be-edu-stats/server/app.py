@@ -1,10 +1,24 @@
 from fastapi import FastAPI
 from routes.indicator import indicator_router
 
+description = """
+Visual query builder API. 🚀
+
+## Indicators
+
+You can **read indicators**, specially from Colombian primary and secondary education, 
+from world bank international education dataset.
+
+You will be able to:
+
+* **Read indicators**.
+* **Save indicators with comments** (_not implemented_yet_).
+"""
+
 app = FastAPI(
     title="Query colombian education indicators",
-    description="Visual query builder API",
-    version="0.0.1",
+    description=description,
+    version="0.0.1"
 )
 
 app.include_router(indicator_router)
