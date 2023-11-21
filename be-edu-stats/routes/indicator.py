@@ -71,6 +71,8 @@ def get_whole_indicator_by_name(
     """
     Get the whole indicator by name
     """
+    if indicator_name not in IndicatorNames:
+        raise HTTPException(status_code=404, detail="Indicator not found")
     indicator = whole_indicator_by_name(db, indicator_name, limit)
     if indicator is None:
         raise HTTPException(status_code=404, detail="Indicator not found")
@@ -95,13 +97,12 @@ def get_indicatorse_name_to_select()-> list[str]:
     "/indicators/{indicator_name}",
     status_code=status.HTTP_200_OK,
     description="Post an indicator by name with comments",
-    response_model=IndicatorBase,
     response_description="Save an indicator with his values"
 )
 def post_indicator_by_name(
     indicator_name: IndicatorNames,
     db: Session = Depends(get_bigquery_session),
-) -> IndicatorBase:
+) -> dict:
     """
     Post an indicator by name
     """
