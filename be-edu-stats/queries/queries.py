@@ -75,7 +75,8 @@ def whole_indicator_by_name(db: Session, name: str, limit: int):
     :param limit: limit of rows to return
     """
     stmt = (
-        whole_indicator_statement().where(Indicator.indicator_name == name).limit(limit)
+        whole_indicator_statement().where(Indicator.indicator_name == name)
+        .order_by(IndicatorYear.year).limit(limit)
     )
     complete_indicators = db.exec(stmt).all()
     if complete_indicators is not None:
