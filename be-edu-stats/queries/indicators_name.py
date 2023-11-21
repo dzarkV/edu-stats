@@ -17,3 +17,5 @@ class IndicatorNames(str, Enum):
     government_expenditure__per_student_secondary = (
         "Government expenditure per secondary student as % of GDP per capita (%)"
     )
+    private_enrolment_primary = "Enrolment in primary education, private institutions, both sexes (number)"
+    public_enrolment_primary = "Enrolment in primary education, public institutions, both sexes (number)"
