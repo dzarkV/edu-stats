@@ -3,23 +3,23 @@
     <h1>Education Indicators</h1>
   </div>
   <div>
-      <p>Clic to run a query </p>
-      <button @click="getIndicators">Run Query</button>
-   </div>
-    <h2>
-      Primary and secundary indicators of Colombia
-    </h2>
-    <div>
-      <p>Select an indicator </p>
-      <select v-model="selectedInd">
-        <option v-for="ind in indicador_selected">{{ ind }}</option>
-      </select>
-    </div>
+    <p>Clic to run a query </p>
+    <button @click="getIndicators">Run Query</button>
+  </div>
+  <h2>
+    Primary and secundary indicators of Colombia
+  </h2>
+  <div>
+    <p>Select an indicator </p>
+    <select v-model="selectedInd">
+      <option v-for="ind in indicador_selected">{{ ind }}</option>
+    </select>
+  </div>
   <div>
     <h3>Query results</h3>
     <ul>
       <li v-if="Object.keys(queryInd).length !== 0">
-        {{ queryInd[0].indicator_name}}
+        {{ queryInd[0].indicator_name }}
       </li>
     </ul>
     <!-- <ul>
@@ -40,28 +40,28 @@ const getIndicators = () => {
     alert("Select and indicator");
     return;
   }
-      axios.get(`/indicators?indicator_name=${selectedInd}`)
-        .then((res) => {
-          queryInd.value = res.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    };
+  axios.get(`/indicators?indicator_name=${selectedInd}`)
+    .then((res) => {
+      queryInd.value = res.data;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 const indicador_selected = ref([]);
 let selectedInd = "";
 
-onMounted( () =>  {
-      axios.get('/indicators-to-select')
-        .then((res) => {
-          indicador_selected.value = res.data;
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+onMounted(() => {
+  axios.get('/indicators-to-select')
+    .then((res) => {
+      indicador_selected.value = res.data;
+    })
+    .catch((error) => {
+      console.error(error);
     });
+});
 
-  
+
 </script>
 

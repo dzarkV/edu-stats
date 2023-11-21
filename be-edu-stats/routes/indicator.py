@@ -10,7 +10,7 @@ from queries.queries import (
     indicator_by_id,
     whole_indicator_by_id,
     whole_indicator_by_name,
-    indicators_from_enum
+    indicators_from_enum,
 )
 from models.indicator import Indicator
 
@@ -86,18 +86,22 @@ def get_whole_indicator_by_name(
     response_model=list[str],
     response_description="Id, name, year and value's indicator to select",
 )
-def get_indicatorse_name_to_select()-> list[str]:
+def get_indicatorse_name_to_select() -> list[str]:
     """
     Get all indicators to select from single select list
     """
-    return indicators_from_enum() if indicators_from_enum() is not [] else HTTPException(status_code=404, detail="No indicators to select")
+    return (
+        indicators_from_enum()
+        if indicators_from_enum() is not []
+        else HTTPException(status_code=404, detail="No indicators to select")
+    )
 
 
 @indicator_router.post(
     "/indicators/{indicator_name}",
     status_code=status.HTTP_200_OK,
     description="Post an indicator by name with comments",
-    response_description="Save an indicator with his values"
+    response_description="Save an indicator with his values",
 )
 def post_indicator_by_name(
     indicator_name: IndicatorNames,

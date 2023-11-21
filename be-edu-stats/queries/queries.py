@@ -82,6 +82,7 @@ def whole_indicator_by_name(db: Session, name: str, limit: int):
         return indicators_helper_format(complete_indicators)
     return None
 
+
 def indicators_from_enum() -> list:
     """
     Get all indicators to select from enum class

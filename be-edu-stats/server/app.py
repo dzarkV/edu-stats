@@ -19,7 +19,7 @@ You will be able to:
 app = FastAPI(
     title="Query colombian education indicators",
     description=description,
-    version="0.0.1"
+    version="0.0.1",
 )
 
 app.add_middleware(
