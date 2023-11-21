@@ -1,0 +1,5 @@
+fastapi==0.104.1
+sqlalchemy-bigquery==1.8.0
+uvicorn==0.24.0.post1
+python-dotenv==1.0.0
+sqlmodel==0.0.11

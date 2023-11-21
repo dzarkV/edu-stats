@@ -1,0 +1,22 @@
+version: '3.8'
+# Compose with Github project 
+services:
+
+  backend:
+    build: ./be-edu-stats
+    ports:
+      - 5000:5000
+    volumes:
+      - ./be-edu-stats:/app
+    command: python main.py
+    restart: always
+
+  frontend:
+    depends_on:
+      - backend
+    build: ./fe-edu-stats
+    volumes:
+      - './fe-edu-stats:/app'
+    ports:
+      - 9000:9000
+    restart: always
