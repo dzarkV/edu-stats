@@ -9,11 +9,14 @@ services:
     volumes:
       - ./be-edu-stats:/app
     command: python main.py
+    restart: always
 
   frontend:
+    depends_on:
+      - backend
     build: ./fe-edu-stats
     volumes:
       - './fe-edu-stats:/app'
-      # - '/app/node_modules'
     ports:
       - 9000:4173
+    restart: always
