@@ -1,65 +1,67 @@
 <template>
   <div id="app">
     <h1>Education Indicators</h1>
-    <p>Aqui está el mensaje: {{ msg }}</p>
-    <!-- <div class="container">
-      <BarChart />
+  </div>
+  <div>
+      <p>Clic to run a query </p>
+      <button @click="getIndicators">Run Query</button>
+   </div>
+    <h2>
+      Primary and secundary indicators of Colombia
+    </h2>
+    <div>
+      <p>Select an indicator </p>
+      <select v-model="selectedInd">
+        <option v-for="ind in indicador_selected">{{ ind }}</option>
+      </select>
     </div>
-    <div class="container">
-      <Bar v-if="loaded" :data="chartData" />
-      {{ chartData }}
-    </div> -->
-    <!-- <div class="indicator" v-for="indicator in indicators" :key="indicator.indicator_id">
-        <h2>{{ indicator.indicator_name }}</h2>
-        <div class="chart">
-          <canvas :id="'chart-' + indicator.indicator_id"></canvas>
-        </div>
-      </div> -->
+  <div>
+    <h3>Query results</h3>
+    <ul>
+      <li v-if="Object.keys(queryInd).length !== 0">
+        {{ queryInd[0].indicator_name}}
+      </li>
+    </ul>
+    <!-- <ul>
+      <li v-for="item in queryInd" :key="item.id">
+        {{ item }}
+      </li>
+    </ul> -->
   </div>
 </template>
 
 <script setup>
+import { ref, onMounted } from "vue";
 import axios from "axios";
-const msg = []
-const getMesagge = () => {
-      axios.get('/')
+axios.defaults.baseURL = "http://localhost:5000";
+let queryInd = ref({});
+const getIndicators = () => {
+  if (selectedInd === "") {
+    alert("Select and indicator");
+    return;
+  }
+      axios.get(`/indicators?indicator_name=${selectedInd}`)
         .then((res) => {
-          msg = res.data;
+          queryInd.value = res.data;
         })
         .catch((error) => {
           console.error(error);
         });
     };
-// // import Chart from "chart.js";
-// import BarChart from './components/BarChart.vue'
 
-// import { Bar } from 'vue-chartjs'
-// import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+const indicador_selected = ref([]);
+let selectedInd = "";
 
-// ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+onMounted( () =>  {
+      axios.get('/indicators-to-select')
+        .then((res) => {
+          indicador_selected.value = res.data;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    });
 
-//     loaded = true
-
-//     chartData = {
-//       labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
-//       datasets: [
-//         {
-//           label: 'Data One',
-//           backgroundColor: '#f87979',
-//           data: [40, 20, 30, 50, 60, 70, 80]
-//         }
-//       ]
-//     }
-
-    // try {
-    //   const { indicatorslist } = await axios.get('http://0.0.0.0:8000').then((response) => { this.indicators = response.data })
-    //   this.chartData = indicatorslist
-    //   console.log(this.chartData)
-    //   this.loaded = true
-    // } catch (e) {
-    //   console.error(e)
-    // }
-
-
+  
 </script>
 
