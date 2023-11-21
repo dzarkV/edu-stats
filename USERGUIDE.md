@@ -32,4 +32,4 @@ After that, you can run (make sure you have Docker and Docker compose installed 
 docker compose up
 ```
 
-You can see a brief explanation about the project [this](https://youtu.be/AzVhnX6oH7w)
+You can see a brief explanation video about the project [this](https://youtu.be/AzVhnX6oH7w)

@@ -30,4 +30,4 @@ RUN npm install
 EXPOSE 9000
 # Ejecuta ambos proyectos
 CMD cd /app/edu-stats/be-edu-stats && python3 main.py & \
-    cd /app/app/edu-stats/fe-edu-stats && npm run preview
+    cd /app/edu-stats/fe-edu-stats && npm run preview
