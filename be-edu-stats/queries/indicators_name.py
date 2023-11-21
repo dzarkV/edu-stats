@@ -19,3 +19,6 @@ class IndicatorNames(str, Enum):
     )
     private_enrolment_primary = "Enrolment in primary education, private institutions, both sexes (number)"
     public_enrolment_primary = "Enrolment in primary education, public institutions, both sexes (number)"
+
+    private_enrolment_secondary = "Percentage of enrolment in secondary education in private institutions (%)"
+    government_expenditure_doll_per_student_primary = "Government expenditure per primary student (US$)"
