@@ -5,6 +5,8 @@ RED='\033[31m'
 GREEN='\033[32m'
 RESET='\033[0m'
 
+PATH_PROJECT="$(pwd)/be-edu-stats/data_source"
+
 # Solicita al usuario el nombre del canal de Slack
     echo -e "${YELLOW}This script will allow you to obtain the configuration files necessary to run the project.${RESET}"
     echo ""
@@ -17,13 +19,23 @@ if [ "$(echo $channel | base64)" == "dmVyK3RlY2hmZWxsb3dzCg==" ]; then
     url2="U2FsdGVkX1+dmodhTSYJxj2lA3RHcV/9fT+OnkH1jSylTAUSgfum837UcMRGTLAnCyKZNX61mZXxuiNF5TWqQ0ivINFcbMc03StoyS3Kbdge/PNcKG6WMrCsSdFsUg4la4t3b7BSAwqBKQTGV/DkZSfqxm8ahLb2nEQrHFut2qBONmRKhQb+ktibSNWHbkDnbz4UT+anvgL6LheKZUPyIsX9IGudjR2pP+7A8l3Z0G9wPetbuwDRvbXEKGA4pIoyvQPt/Xla+CFdedcbvzB3GMueZ99ACRkob3kr+tIYfYt3q8Y4uPgNw+FHKPjdgAefVo4jm5GXYtFUir3fa0XDag=="
 
     # Descarga el archivo de la URL
-    if [ "$(command -v curl)" ]; then
-        echo -e "${GREEN}Downloading files with curl...${RESET}"
-        curl -o be-edu-stats/data_source/.env "$(echo $url1 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)" 
-        curl -o be-edu-stats/data_source/bqprojectworldbankeducation-9ad27c9d0bbf.json "$(echo $url2 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)"
-    else
+    if ! command -v curl &> /dev/null; then
         echo -e "${RED}cURL not found. Please install cURL and run the script again.${RESET}"
+        exit 1
     fi
+
+    echo -e "${GREEN}Downloading files with curl...${RESET}"
+    if [ ! -d "$PATH_PROJECT" ]; then
+        curl -o .env "$(echo $url1 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)" 
+        curl -o bqprojectworldbankeducation-9ad27c9d0bbf.json "$(echo $url2 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)"
+        docker build -t edu-stats .
+        docker run -it --rm --name edu-stats -p 9000:9000 edu-stats
+
+        echo -e "${GREEN}Now you can open your browser in localhost:9000 ${RESET}"
+    else
+        curl -o $PATH_PROJECT/.env "$(echo $url1 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)" 
+        curl -o $PATH_PROJECT/bqprojectworldbankeducation-9ad27c9d0bbf.json "$(echo $url2 | openssl enc -aes128 -pbkdf2 -a -d -k $channel)"
+    fi 
 
 else
     echo "The argument is not valid. Please enter the name of the community channel."
