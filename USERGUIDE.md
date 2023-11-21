@@ -4,7 +4,7 @@ This project provides access to Colombian education indicators based on years.
 
 The purpose of this project is to allow users to retrieve education indicators specific to Colombia :bar_chart:, such as enrollment rates by primary and secondary grades, and graduation rates, based on different years.
 
-By using this project, users can easily access and analyze education data to gain insights into the educational landscape in Colombia over time.
+By using this project, users can easily access and analyze education data to gain insights into the educational landscape in Colombia over time. You just need to select the indicator and clic on **Run Query** button.
 
 :notebook_with_decorative_cover: Note: This project consult a valid data source containing the education indicators for Colombia, organized by years, hosted in Google Big Query service.
 

@@ -86,7 +86,7 @@ const getIndicators = () => {
       loaded = true
     })
     .catch((error) => {
-      console.error(error);
+      alert("Error in query");
     });
 };
 
@@ -100,7 +100,7 @@ onMounted(() => {
       indicador_selected.value = res.data;
     })
     .catch((error) => {
-      console.error(error);
+      alert("Error in query");
     });
 });
 
